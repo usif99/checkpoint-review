@@ -1,26 +1,25 @@
 package piscine
 
 func Itoa(n int) string {
-	var result string
-	isNegative := false
+if n == 0 {
+		return "0"
+	}
 
+	negative := false
 	if n < 0 {
-		isNegative = true
+		negative = true
 		n = -n
 	}
 
+	result := ""
 	for n > 0 {
 		digit := n % 10
-		result = string(rune(digit+'0')) + result
+		result = string('0'+digit) + result
 		n /= 10
 	}
 
-	if isNegative {
+	if negative {
 		result = "-" + result
-	}
-
-	if result == "" {
-		return "0"
 	}
 
 	return result

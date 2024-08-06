@@ -5,29 +5,20 @@ func IsCapitalized(s string) bool {
 		return false
 	}
 
-	words := make([]rune, 0, len(s))
-	for _, c := range s {
-		if c == ' ' {
-			if len(words) > 0 && !isUpper(words[0]) && isLetter(words[0]) {
+	newWord := true
+
+	for _, char := range s {
+		if newWord {
+			if char >= 'a' && char <= 'z' {
 				return false
 			}
-			words = make([]rune, 0, len(s))
-		} else {
-			words = append(words, c)
+			newWord = false
+		}
+
+		if char == ' ' {
+			newWord = true
 		}
 	}
 
-	if len(words) > 0 && !isUpper(words[0]) && isLetter(words[0]) {
-		return false
-	}
-
 	return true
-}
-
-func isUpper(r rune) bool {
-	return r >= 'A' && r <= 'Z'
-}
-
-func isLetter(r rune) bool {
-	return (r >= 'A' && r <= 'Z') || (r >= 'a' && r <= 'z')
 }

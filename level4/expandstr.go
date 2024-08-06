@@ -1,48 +1,45 @@
 package main
 
 import (
-	"github.com/01-edu/z01"
-	"os"
+    "github.com/01-edu/z01"
+    "os"
 )
 
 func main() {
-	if len(os.Args) != 2 {
-		return
-	}
+    if len(os.Args) != 2 {
+        return
+    }
 
-	input := os.Args[1]
-	words := make([]string, 0)
-	currentWord := ""
+    input := os.Args[1]
+    var words [][]rune
+    word := []rune{}
 
-	for i := 0; i < len(input); i++ {
-		if input[i] == ' ' {
-			if currentWord != "" {
-				words = append(words, currentWord)
-				currentWord = ""
-			}
-		} else {
-			currentWord += string(input[i])
-		}
-	}
+  for _, r := range input {
+        if r != ' ' {
+            word = append(word, r)
+        } else {
+            if len(word) > 0 {
+                words = append(words, word)
+                word = []rune{}
+            }
+        }
+    }
 
-	if currentWord != "" {
-		words = append(words, currentWord)
-	}
+    if len(word)>0{
+        words = append(words, word)
+    }
+   
 
-	if len(words) == 0 {
-		return
-	}
+   for i, w := range words {
+        for _, r := range w {
+            z01.PrintRune(r)
+        }
+        if i < len(words)-1 {
+            z01.PrintRune(' ')
+            z01.PrintRune(' ')
+            z01.PrintRune(' ')
+        }
+    }
 
-	for i, word := range words {
-		for _, char := range word {
-			z01.PrintRune(char)
-		}
-		if i < len(words)-1 {
-			for j := 0; j < 3; j++ {
-				z01.PrintRune(' ')
-			}
-		}
-	}
-
-	z01.PrintRune('\n')
+    z01.PrintRune('\n')
 }
